@@ -1,0 +1,136 @@
+.wildcard_gallery_ngbutton, .codex_ngbutton {
+    background: #802727 !important;
+}
+
+.wildcard_gallery_btn, .codex_btn {
+    border-radius: 8px !important;
+    margin: 0 4px !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+.wildcard_gallery_checkbox, .codex_checkbox {
+    margin-top: 6px !important;
+    margin-bottom: 12px !important;
+}
+
+.wildcard_gallery_actions_row, .codex_actions_row {
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+}
+
+#wildcard_gallery_notif_area, .wildcard_gallery_notif_area,
+#codex_notif_area, .codex_notif_area {
+    margin-top: 12px !important;
+    margin-bottom: 6px !important;
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    min-height: unset !important;
+    padding: 0 !important;
+}
+
+.wildcard_gallery_preview_manager_container, .codex_preview_manager_container {
+    gap: 14px !important;
+}
+
+.wildcard_gallery_checkbox_container, .codex_checkbox_container {
+    margin-top: 4px !important;
+    margin-bottom: 12px !important;
+}
+
+.wildcard_gallery_preview_manager_container .gradio-dropdown,
+.wildcard_gallery_preview_manager_container .gradio-textbox,
+.codex_preview_manager_container .gradio-dropdown,
+.codex_preview_manager_container .gradio-textbox {
+    margin-bottom: 10px !important;
+}
+
+/* Base card container: DOM & VRAM Virtualization */
+#txt2img_wildcard_gallery_neo_cards_html .card,
+#img2img_wildcard_gallery_neo_cards_html .card,
+#txt2img_codex_cards_html .card,
+#img2img_codex_cards_html .card {
+    content-visibility: auto !important;
+    contain-intrinsic-size: 18em 24em !important;
+    background-image: linear-gradient(90deg, var(--button-secondary-background-fill), var(--button-primary-background-fill));
+    font-size: 100%;
+    height: 24em;
+    width: 18em;
+    margin: 0.5em;
+    border-radius: 0.8rem;
+    position: relative;
+    overflow: hidden;
+}
+
+#txt2img_wildcard_gallery_neo_cards,
+#img2img_wildcard_gallery_neo_cards,
+#txt2img_codex_cards,
+#img2img_codex_cards {
+    padding: 1.5em;
+}
+
+#txt2img_wildcard_gallery_neo_cards_html .card .button-row,
+#img2img_wildcard_gallery_neo_cards_html .card .button-row,
+#txt2img_codex_cards_html .card .button-row,
+#img2img_codex_cards_html .card .button-row {
+    top: 0;
+}
+
+#txt2img_wildcard_gallery_neo_cards_html .card .actions .additional,
+#img2img_wildcard_gallery_neo_cards_html .card .actions .additional,
+#txt2img_codex_cards_html .card .actions .additional,
+#img2img_codex_cards_html .card .actions .additional {
+    display: none;
+}
+
+#txt2img_wildcard_gallery_neo_cards_html .card .actions,
+#img2img_wildcard_gallery_neo_cards_html .card .actions,
+#txt2img_codex_cards_html .card .actions,
+#img2img_codex_cards_html .card .actions {
+    position: absolute;
+    width: 100%;
+}
+
+#txt2img_wildcard_gallery_neo_cards_html .card .actions .name,
+#img2img_wildcard_gallery_neo_cards_html .card .actions .name,
+#txt2img_codex_cards_html .card .actions .name,
+#img2img_codex_cards_html .card .actions .name {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    width: 100%;
+    height: initial !important;
+    margin-top: 1em;
+    font-size: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#img2img_wildcard_gallery_neo_cards_html .card:not(:has(img)),
+#txt2img_wildcard_gallery_neo_cards_html .card:not(:has(img)),
+#img2img_codex_cards_html .card:not(:has(img)),
+#txt2img_codex_cards_html .card:not(:has(img)) {
+    background-image: url('./resources/no-preview.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* GPU-friendly card hover: Outline instead of heavy box-shadow and brightness filters */
+#img2img_wildcard_gallery_neo_cards_html .card:hover,
+#txt2img_wildcard_gallery_neo_cards_html .card:hover,
+#img2img_codex_cards_html .card:hover,
+#txt2img_codex_cards_html .card:hover {
+    outline: 2px solid var(--primary-500, #ff5f5f) !important;
+    outline-offset: -2px;
+}
+
+#txt2img_wildcard_gallery_neo_cards_html .card img.preview,
+#img2img_wildcard_gallery_neo_cards_html .card img.preview,
+#txt2img_codex_cards_html .card img.preview,
+#img2img_codex_cards_html .card img.preview {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
