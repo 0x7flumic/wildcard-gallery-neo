@@ -1,6 +1,6 @@
 # Wildcard Gallery Neo
 
-**Wildcard Gallery Neo** is a lightweight, high-performance visual wildcard manager and dynamic prompt expansion engine for SD WebUI Forge (Neo). It integrates directly into the Extra Networks tab to provide a smooth, card-based interface for browsing, inserting, previewing, and batch-managing wildcard collections with zero external dependencies.
+**Wildcard Gallery Neo** is a lightweight visual wildcard manager and dynamic prompt expansion engine for SD WebUI Forge (Neo). It integrates directly into the Extra Networks tab to provide a smooth, card-based interface for browsing, inserting, previewing, and batch-managing wildcard collections.
 
 ---
 
@@ -12,7 +12,6 @@
 - **YAML & TXT Dual Support:** Supports both flat text files (`.txt`) and deeply nested hierarchical structures (`.yaml` / `.yml`).
 - **Preview Manager:** Integrated txt2img utility to batch-generate, optimize, collect, and delete visual card previews.
 - **Fast-Path Engine:** Regex check bypass when prompts contain no wildcard tokens (`__` or `{`).
-- **VRAM Cleanup:** Automatic torch garbage collection between preview generation batches.
 
 ---
 
@@ -67,20 +66,6 @@ Organize categories and subcategories in a single file:
 
 ---
 
-## 🎲 Dynamic Prompt Syntax
-
-| Syntax Type | Pattern | Description & Examples |
-| :--- | :--- | :--- |
-| **Standard** | `__path/name__` | Pulls 1 random item from `path/name.txt` or `path.yaml` category. |
-| **Variants** | `{day|night|sunset}` | Picks 1 option randomly at generation time. |
-| **Weighted Variants** | `{10::masterpiece|1::sketch}` | Assigns probabilities to variants (10x more likely to pick `masterpiece`). |
-| **Multi-Sampling** | `__3$$colors__` | Picks 3 unique random options, joined by `, `. |
-| **Custom Delimiter** | `__2$$|$$colors__` | Picks 2 items joined by ` | `. |
-| **Additive Sampling** | `__+3$$colors__` | Picks up to 3 random items (allows duplicates). |
-| **Recursive Expansion** | `__{style/palette}__` | Wildcards inside wildcards or variants are recursively resolved. |
-
----
-
 ## 🎨 Preview Manager & Actions
 
 Under **txt2img** → **Scripts** dropdown, select **Wildcard Gallery Neo Preview Manager**:
@@ -99,9 +84,8 @@ Under **txt2img** → **Scripts** dropdown, select **Wildcard Gallery Neo Previe
 
 ---
 
-## ⚙️ Advanced Features
+## 🖼️ Card Customization
 
-### Card Customization
 - Missing previews automatically display the fallback thumbnail (`resources/no-preview.jpg`).
 - Custom preview images can be manually placed into `extensions/wildcard-gallery-neo/cards/` matching the relative path of the wildcard (e.g., `cards/lighting/cinematic.jpg`). Supported formats: `.jpg`, `.jpeg`, `.png`, `.webp`.
 
