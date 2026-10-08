@@ -70,8 +70,8 @@ class WildcardGalleryCards(ExtraNetworksPage):
 
 
     def create_item(self, wild_path: str, index=1, enable_filter=True):
-        name, category = get_safe_name_2(wild_path, self.cards)
-        name = name.replace("_", " ").upper()
+        leaf_name, category = get_safe_name_2(wild_path, self.cards)
+        display_name = leaf_name.replace("_", " ").upper()
         
         # Virtual file path without touching disk
         virtual_file_base = os.path.abspath(os.path.join(CARDS_FOLDER, wild_path.replace("/", os.path.sep)))
@@ -80,19 +80,19 @@ class WildcardGalleryCards(ExtraNetworksPage):
         card_id = f"wildcard-gallery-neo:{wild_path}".encode("utf-8")
 
         return {
-            "name": name,
+            "name": wild_path,
             "filename": virtual_file_base,
             "shorthash": f"{zlib.adler32(card_id) & 0xffffffff:08x}",
             "preview": self.find_preview(virtual_file_base),
             "description": self.find_description(virtual_file_base),
-            "search_terms": [wild_path, name, category, self.search_terms_from_path(virtual_file_base)],
+            "search_terms": [wild_path, display_name, leaf_name, category, self.search_terms_from_path(virtual_file_base)],
             "prompt": quote_js(prompt),
             "local_preview": f"{virtual_file_base}.jpeg",
             "sort_keys": {
-                "default": f"{category.lower()}-{name.lower()}",
+                "default": f"{category.lower()}-{display_name.lower()}",
                 "date_created": index,
                 "date_modified": f"{category.lower()}-{index}",
-                "name": name.lower(),
+                "name": wild_path.lower(),
             },
         }
 
@@ -126,6 +126,35 @@ class WildcardGalleryCards(ExtraNetworksPage):
 
     def allowed_directories_for_previews(self):
         return [CARDS_FOLDER]
+
+    def create_tree_file_item_html(self, tabname: str, file_path: str, item: dict) -> str:
+        item_html_args = self.create_item_html(tabname, item)
+        action_buttons = "".join(
+            [
+                item_html_args["copy_path_button"],
+                item_html_args["metadata_button"],
+                item_html_args["edit_button"],
+            ]
+        )
+        action_buttons = f'<div class="button-row">{action_buttons}</div>'
+        leaf_name = os.path.basename(file_path).replace("_", " ").upper()
+        btn = self.btn_tree_tpl.format(
+            **{
+                "search_terms": "",
+                "subclass": "tree-list-content-file",
+                "tabname": tabname,
+                "extra_networks_tabname": self.extra_networks_tabname,
+                "onclick_extra": item_html_args["card_clicked"],
+                "data_path": file_path,
+                "data_hash": item["shorthash"],
+                "action_list_item_action_leading": "<i class='tree-list-item-action-chevron'></i>",
+                "action_list_item_visual_leading": "🗎",
+                "action_list_item_label": leaf_name,
+                "action_list_item_visual_trailing": "",
+                "action_list_item_action_trailing": action_buttons,
+            }
+        )
+        return f"<li class='tree-list-item tree-list-item--subitem' data-tree-entry-type='file'>{btn}</li>"
 
     def create_tree_view_html(self, tabname: str) -> str:
         """
