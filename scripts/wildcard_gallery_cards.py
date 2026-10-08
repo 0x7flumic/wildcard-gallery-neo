@@ -81,6 +81,7 @@ class WildcardGalleryCards(ExtraNetworksPage):
 
         return {
             "name": wild_path,
+            "display_name": display_name,
             "filename": virtual_file_base,
             "shorthash": f"{zlib.adler32(card_id) & 0xffffffff:08x}",
             "preview": self.find_preview(virtual_file_base),
@@ -92,9 +93,20 @@ class WildcardGalleryCards(ExtraNetworksPage):
                 "default": f"{category.lower()}-{display_name.lower()}",
                 "date_created": index,
                 "date_modified": f"{category.lower()}-{index}",
-                "name": wild_path.lower(),
+                "name": display_name.lower(),
             },
         }
+
+    def create_item_html(self, tabname: str, item: dict, template: str = None):
+        res = super().create_item_html(tabname, item, template=None)
+        if isinstance(res, dict):
+            display_name = item.get("display_name")
+            if display_name:
+                res["name"] = html.escape(display_name)
+            if template:
+                return template.format(**res)
+            return res
+        return res
 
     def list_items(self):
         i = 0
